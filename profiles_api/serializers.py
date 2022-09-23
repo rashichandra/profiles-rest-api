@@ -10,7 +10,8 @@ class HelloSerializer(serializers.Serializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     """serializes a user profile object"""
 
-    """the way you use a model serializer is by using a meta class to configure the serializer to point to specific model in our project"""
+    """the way you use a model serializer is by using a meta class to configure the serializer
+     to point to specific model in our project"""
 
     class Meta:
         model=models.UserProfile #this sets our serializer to point to user profile model
