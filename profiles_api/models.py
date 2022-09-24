@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 #import abstractpermission mixin
 from django.contrib.auth.models import PermissionsMixin,BaseUserManager
-
+from django.conf import settings
 
 
 class UserProfileManager(BaseUserManager):
@@ -57,3 +57,20 @@ class UserProfile(AbstractBaseUser,PermissionsMixin):
     def __str__(self):
         """return string representation of our user"""
         return self.email
+
+
+class ProfileFeedItem(models.Model):
+    """Profile status update"""
+    #ForeignKey is used to link profilefeed model to UserProfile model. settings.authusermodel contains name of model
+    # and ondelte parameter specifies what to do if that field is deleted from userprofile models
+
+    user_profile = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete= models.CASCADE
+    )
+
+    status_text= models.CharField(max_length=255)
+    created_on=models.DateTimeField(auto_now_add= True)#created field for storing date time field stamp
+
+    def __str__(self):
+        return self.status_text
